@@ -11,7 +11,7 @@ class Zomato {
 
   getNearbyLocations = (lat, lng) => {
     return this.axios.get(
-      `/search?cuisines=1034&lat=${lat}&lon=${lng}&sort=real_distance`
+      `/search?cuisines=1034&lat=${lat}&lon=${lng}&sort=real_distance&radius=1000`
     );
   };
 }
