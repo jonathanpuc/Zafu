@@ -1,13 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import marker from './marker.png';
+import pointer from './pointer.png';
 import Rating from '../shared/Rating';
 const Marker = ({ focus, onClick, place }) => (
   <Outer focus={focus} onClick={() => onClick(place.id)}>
     {focus && (
       <InfoBox>
         <h3>{place.name}</h3>
-        <Rating {...place.rating} />
+        <div>
+          <Rating {...place.rating} />
+          <img src={pointer} alt="see more" />
+        </div>
       </InfoBox>
     )}
     <button>
@@ -39,16 +43,28 @@ const Outer = styled.div`
 
 const InfoBox = styled.div`
   position: absolute;
-  display: grid;
-  grid-template-columns: max-content 1fr 1fr;
-  background-color: #fff;
+  display: flex;
+  flex-direction:column;
+
+  background-color: #f9f9f9;
   padding: .8rem
   min-width: 12rem;
-  left: 4rem;
+  left: 5rem;
+  border-radius: 5px;
   h3, p {
     margin: 0;
     align-items: center;
     perspective: 100px;
+  }
+
+  > div {
+    display: flex;
+    justify-content: space-around;
+    > img {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
   }
 
   animation: hover 1500ms ease-in alternate infinite;

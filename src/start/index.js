@@ -1,16 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-const Start = () => (
-  <Outer>
-    <h2>Welcome to Zafu.</h2>
-    <p>Craving that next plant based meal?</p>
-    <p>Find a place near you or search by cuisine.</p>
-    <ButtonsContainer>
-      <button>What's nearby?</button>
-      <button>Find by cuisine.</button>
-    </ButtonsContainer>
-  </Outer>
-);
+
+const Start = ({ history }) => {
+  function goToNearbyScreen() {
+    history.push('/nearby');
+  }
+
+  return (
+    <Outer>
+      <h2>Welcome to Zafu.</h2>
+      <p>Craving that next plant based meal?</p>
+      <p>Find a place near you or search by cuisine.</p>
+      <ButtonsContainer>
+        <button onClick={goToNearbyScreen}>What's nearby?</button>
+        <button>Find by cuisine.</button>
+      </ButtonsContainer>
+    </Outer>
+  );
+};
 
 const Outer = styled.div`
   margin-top: 200px;
