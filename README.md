@@ -10,13 +10,13 @@ To get started:
 Install dependencies with
 
 ```
-yarn start
+yarn
 ```
 
 Fire up Zafu with
 
 ```
-yarn
+yarn start
 ```
 
 ## Built With
