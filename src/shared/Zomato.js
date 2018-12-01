@@ -14,6 +14,10 @@ class Zomato {
       `/search?cuisines=1034&lat=${lat}&lon=${lng}&sort=real_distance&radius=1000&count=100`
     );
   };
+
+  getCuisines = (lat, lng) => {
+    return this.axios.get(`/cuisines?&lat=${lat}&lon=${lng}`);
+  };
 }
 
 const api = new Zomato();

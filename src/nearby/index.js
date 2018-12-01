@@ -4,42 +4,17 @@ import Map from './Map';
 export default class Nearby extends React.Component {
   state = {
     places: [],
-    selectedPlaceId: '',
-    location: {
-      latitude: '',
-      longitude: ''
-    },
-    positionError: ''
+    selectedPlaceId: ''
   };
 
-  async componentDidMount() {
-    if ('geolocation' in navigator) {
-      /* geolocation is available */
-      navigator.geolocation.getCurrentPosition(
-        this.positionSuccess,
-        this.positionError
-      );
-    } else {
-      /* geolocation IS NOT available */
-    }
-  }
-
-  positionSuccess = position => {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    this.setState({ location: { latitude, longitude } });
+  componentDidMount() {
+    console.log(this.props);
     this.loadPlaces();
-  };
-
-  positionError = () => {
-    this.setState({
-      positionError:
-        'There was an error fetching your location, please ensure permission is provided.'
-    });
-  };
+  }
 
   loadPlaces = async () => {
     const { location } = this.state;
+    const { userLocation } = this.props;
     try {
       // const response = await Zomato.getNearbyLocations(
       //   '-37.8595388',
@@ -47,8 +22,8 @@ export default class Nearby extends React.Component {
       // );
 
       const response = await Zomato.getNearbyLocations(
-        location.latitude,
-        location.longitude
+        userLocation.latitude,
+        userLocation.longitude
       );
       const results = response.data.restaurants;
       this.setState({
@@ -93,10 +68,7 @@ export default class Nearby extends React.Component {
           places={this.state.places}
           onPlaceSelect={this.handlePlaceSelect}
           onPlaceDeselect={this.handlePlaceDeselect}
-          userLocation={{
-            lat: this.state.location.latitude,
-            lng: this.state.location.longitude
-          }}
+          userLocation={this.props.userLocation}
         />
       </div>
     );

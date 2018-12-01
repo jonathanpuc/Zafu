@@ -3,16 +3,18 @@ import GoogleMapReact from 'google-map-react';
 import { mapsKey } from '../shared/config';
 import mapStyles from './mapStyles';
 import Marker from './Marker';
-// selectedPlaceId
+import UserMarker from './UserMarker';
 
 export default class Map extends React.Component {
   state = {
     zoom: 13.5
   };
 
+  componentDidMount() {
+    console.log(this.props);
+  }
   onMarkerSelected = placeId => {
     this.props.onPlaceSelect(placeId);
-    console.log(placeId);
   };
 
   handleOutsideClick = () => {
@@ -23,20 +25,16 @@ export default class Map extends React.Component {
     const selectedPlace = this.props.places.find(
       place => place.id === this.props.selectedPlaceId
     );
-    console.log(selectedPlace);
+
     if (selectedPlace) {
-      console.log({
-        lat: selectedPlace.latlng.lat,
-        lng: selectedPlace.latlng.lng
-      });
       return {
         lat: selectedPlace.latlng.lat,
         lng: selectedPlace.latlng.lng
       };
     } else {
       return {
-        lat: this.props.userLocation.lat,
-        lng: this.props.userLocation.lng
+        lat: this.props.userLocation.latitude,
+        lng: this.props.userLocation.longitude
       };
     }
   };
@@ -54,13 +52,17 @@ export default class Map extends React.Component {
     ));
 
     return (
-      <div style={{ height: '500px', width: '100%' }}>
+      <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: mapsKey }}
           defaultZoom={this.state.zoom}
           center={center}
           options={{ styles: mapStyles }}
         >
+          <UserMarker
+            lat={this.props.userLocation.latitude}
+            lng={this.props.userLocation.longitude}
+          />
           {markers}
         </GoogleMapReact>
       </div>

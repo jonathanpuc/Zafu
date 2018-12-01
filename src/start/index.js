@@ -5,6 +5,9 @@ const Start = ({ history }) => {
   function goToNearbyScreen() {
     history.push('/nearby');
   }
+  function goToSearchScreen() {
+    history.push('/search');
+  }
 
   return (
     <Outer>
@@ -13,7 +16,7 @@ const Start = ({ history }) => {
       <p>Find a place near you or search by cuisine.</p>
       <ButtonsContainer>
         <button onClick={goToNearbyScreen}>What's nearby?</button>
-        <button>Find by cuisine.</button>
+        <button onClick={goToSearchScreen}>Find by cuisine.</button>
       </ButtonsContainer>
     </Outer>
   );
